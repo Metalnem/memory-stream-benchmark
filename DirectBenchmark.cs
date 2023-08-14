@@ -6,8 +6,10 @@ namespace MemoryStreamBenchmark;
 [MemoryDiagnoser]
 public class DirectBenchmark
 {
-    private static readonly byte[] _source = new byte[8192];
-    private static readonly byte[] _destination = new byte[8192];
+    private const int Size = 8192;
+
+    private static readonly byte[] _source = new byte[Size];
+    private static readonly byte[] _destination = new byte[Size];
 
     [Params(1, 8, 64, 128, 1024, 4096)]
     public int ChunkSize { get; set; }
@@ -15,14 +17,14 @@ public class DirectBenchmark
     [Benchmark]
     public void CommunityToolkit()
     {
-        var stream = _source.AsMemory().AsStream();
+        using var stream = _source.AsMemory().AsStream();
         Consume(stream);
     }
 
     [Benchmark]
     public void MemoryStream()
     {
-        var stream = new MemoryStream(_source.ToArray());
+        using var stream = new MemoryStream(_source.ToArray());
         Consume(stream);
     }
 
@@ -31,7 +33,7 @@ public class DirectBenchmark
     {
         fixed (byte* pointer = _source)
         {
-            var stream = new UnmanagedMemoryStream(pointer, _source.Length);
+            using var stream = new UnmanagedMemoryStream(pointer, _source.Length);
             Consume(stream);
         }
     }
