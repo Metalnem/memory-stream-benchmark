@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 
 namespace MemoryStreamBenchmark;
 
-[MemoryDiagnoser]
 public class DirectBenchmark
 {
     private const int Size = 8192;
