@@ -1,5 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using CommunityToolkit.HighPerformance;
+using Pipelines.Sockets.Unofficial;
+using System.Runtime.InteropServices;
 
 namespace MemoryStreamBenchmark;
 
@@ -8,34 +10,37 @@ public class DirectBenchmark
 {
     private const int Size = 8192;
 
-    private static readonly byte[] _source = new byte[Size];
+    private static readonly IntPtr _source = Marshal.AllocHGlobal(Size);
     private static readonly byte[] _destination = new byte[Size];
 
     [Params(1, 8, 64, 128, 1024, 4096)]
     public int ChunkSize { get; set; }
 
     [Benchmark]
-    public void CommunityToolkit()
+    public unsafe void CommunityToolkit()
     {
-        using var stream = _source.AsMemory().AsStream();
+        var pointer = (byte*)_source.ToPointer();
+        var memory = new UnmanagedMemoryManager<byte>(pointer, Size);
+
+        using var stream = memory.AsStream();
         Consume(stream);
     }
 
     [Benchmark]
     public void MemoryStream()
     {
-        using var stream = new MemoryStream(_source.ToArray());
+        var buffer = new byte[Size];
+        Marshal.Copy(_source, buffer, 0, Size);
+
+        using var stream = new MemoryStream(buffer);
         Consume(stream);
     }
 
     [Benchmark]
     public unsafe void UnmanagedMemoryStream()
     {
-        fixed (byte* pointer = _source)
-        {
-            using var stream = new UnmanagedMemoryStream(pointer, _source.Length);
-            Consume(stream);
-        }
+        using var stream = new UnmanagedMemoryStream((byte*)_source.ToPointer(), Size);
+        Consume(stream);
     }
 
     private void Consume(Stream stream)
