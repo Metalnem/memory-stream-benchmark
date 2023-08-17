@@ -18,10 +18,9 @@ public class DirectBenchmark
     [Benchmark]
     public unsafe void CommunityToolkit()
     {
-        var pointer = (byte*)_source.ToPointer();
-        var memory = new UnmanagedMemoryManager<byte>(pointer, Size);
-
+        var memory = new UnmanagedMemoryManager<byte>((byte*)_source, Size);
         using var stream = memory.AsStream();
+
         Consume(stream);
     }
 
@@ -30,15 +29,16 @@ public class DirectBenchmark
     {
         var buffer = new byte[Size];
         Marshal.Copy(_source, buffer, 0, Size);
-
         using var stream = new MemoryStream(buffer);
+
         Consume(stream);
     }
 
     [Benchmark]
     public unsafe void UnmanagedMemoryStream()
     {
-        using var stream = new UnmanagedMemoryStream((byte*)_source.ToPointer(), Size);
+        using var stream = new UnmanagedMemoryStream((byte*)_source, Size);
+
         Consume(stream);
     }
 

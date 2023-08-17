@@ -6,6 +6,8 @@ Benchmark of various memory stream implementations:
 - [MemoryStream](https://learn.microsoft.com/en-us/dotnet/api/system.io.memorystream)
 - [UnmanagedMemoryStream](https://learn.microsoft.com/en-us/dotnet/api/system.io.unmanagedmemorystream)
 
+## Direct comparison
+
 ```
 BenchmarkDotNet v0.13.7, macOS Catalina 10.15.6 (19G2021) [Darwin 19.6.0]
 Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cores
@@ -33,3 +35,5 @@ Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cor
 |      **CommunityToolkit** |      **4096** |     **190.4 ns** |   **0.59 ns** |   **0.49 ns** |
 |          MemoryStream |      4096 |   1,154.5 ns |   2.64 ns |   2.34 ns |
 | UnmanagedMemoryStream |      4096 |     241.7 ns |   0.92 ns |   0.77 ns |
+
+## YamlDotNet deserialization
