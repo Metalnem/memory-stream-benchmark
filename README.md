@@ -37,3 +37,16 @@ Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cor
 | UnmanagedMemoryStream |      4096 |     241.7 ns |   0.92 ns |   0.77 ns |
 
 ## YamlDotNet deserialization
+
+```
+BenchmarkDotNet v0.13.7, macOS Catalina 10.15.6 (19G2021) [Darwin 19.6.0]
+Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cores
+.NET SDK 8.0.100-preview.3.23178.7
+  [Host]     : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
+  DefaultJob : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
+```
+|                Method |     Mean |    Error |   StdDev |
+|---------------------- |---------:|---------:|---------:|
+|      CommunityToolkit | 52.14 μs | 0.153 μs | 0.128 μs |
+|          MemoryStream | 53.03 μs | 0.365 μs | 0.285 μs |
+| UnmanagedMemoryStream | 52.91 μs | 0.225 μs | 0.176 μs |
