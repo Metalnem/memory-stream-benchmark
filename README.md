@@ -9,44 +9,44 @@ Benchmark of various memory stream implementations:
 ## Direct comparison
 
 ```
-BenchmarkDotNet v0.13.7, macOS Catalina 10.15.6 (19G2021) [Darwin 19.6.0]
-Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.100-preview.3.23178.7
-  [Host]     : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
-  DefaultJob : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
+BenchmarkDotNet v0.13.7, Ubuntu 20.04.6 LTS (Focal Fossa)
+AMD EPYC 7763, 1 CPU, 8 logical and 4 physical cores
+.NET SDK 7.0.400
+  [Host]     : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT AVX2
+  DefaultJob : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT AVX2
 ```
-|                Method | ChunkSize |         Mean |     Error |    StdDev |
-|---------------------- |---------- |-------------:|----------:|----------:|
-|      **CommunityToolkit** |         **1** |  **75,549.5 ns** | **137.54 ns** | **114.85 ns** |
-|          MemoryStream |         1 |  37,948.5 ns | 158.39 ns | 132.27 ns |
-| UnmanagedMemoryStream |         1 | 245,701.0 ns | 303.06 ns | 236.61 ns |
-|      **CommunityToolkit** |         **8** |   **9,604.7 ns** |  **21.77 ns** |  **19.30 ns** |
-|          MemoryStream |         8 |  12,151.4 ns |  46.19 ns |  38.57 ns |
-| UnmanagedMemoryStream |         8 |  30,941.0 ns |  46.52 ns |  38.84 ns |
-|      **CommunityToolkit** |        **64** |   **1,327.7 ns** |   **1.85 ns** |   **1.55 ns** |
-|          MemoryStream |        64 |   2,560.2 ns |   8.21 ns |   6.86 ns |
-| UnmanagedMemoryStream |        64 |   3,989.6 ns |   5.03 ns |   3.93 ns |
-|      **CommunityToolkit** |       **128** |     **754.2 ns** |   **2.55 ns** |   **2.13 ns** |
-|          MemoryStream |       128 |   1,901.4 ns |   6.30 ns |   5.26 ns |
-| UnmanagedMemoryStream |       128 |   2,196.0 ns |   3.42 ns |   2.86 ns |
-|      **CommunityToolkit** |      **1024** |     **218.7 ns** |   **0.67 ns** |   **0.56 ns** |
-|          MemoryStream |      1024 |   1,208.8 ns |   3.06 ns |   2.55 ns |
-| UnmanagedMemoryStream |      1024 |     377.2 ns |   0.48 ns |   0.38 ns |
-|      **CommunityToolkit** |      **4096** |     **190.4 ns** |   **0.59 ns** |   **0.49 ns** |
-|          MemoryStream |      4096 |   1,154.5 ns |   2.64 ns |   2.34 ns |
-| UnmanagedMemoryStream |      4096 |     241.7 ns |   0.92 ns |   0.77 ns |
+|                Method | ChunkSize |        Mean |    Error |   StdDev |
+|---------------------- |---------- |------------:|---------:|---------:|
+|      **CommunityToolkit** |         **1** | **75,977.3 ns** |  **6.91 ns** |  **6.13 ns** |
+|          MemoryStream |         1 | 36,271.9 ns | 49.85 ns | 41.62 ns |
+| UnmanagedMemoryStream |         1 | 86,375.8 ns | 29.74 ns | 26.36 ns |
+|      **CommunityToolkit** |         **8** |  **9,242.3 ns** |  **1.20 ns** |  **0.94 ns** |
+|          MemoryStream |         8 | 10,512.8 ns | 11.58 ns | 10.26 ns |
+| UnmanagedMemoryStream |         8 | 10,492.3 ns |  1.97 ns |  1.74 ns |
+|      **CommunityToolkit** |        **64** |  **1,255.2 ns** |  **0.90 ns** |  **0.79 ns** |
+|          MemoryStream |        64 |  1,940.1 ns |  7.35 ns |  6.88 ns |
+| UnmanagedMemoryStream |        64 |  1,380.4 ns |  0.20 ns |  0.17 ns |
+|      **CommunityToolkit** |       **128** |    **703.2 ns** |  **0.46 ns** |  **0.43 ns** |
+|          MemoryStream |       128 |  1,342.3 ns |  4.11 ns |  3.64 ns |
+| UnmanagedMemoryStream |       128 |    746.8 ns |  0.17 ns |  0.14 ns |
+|      **CommunityToolkit** |      **1024** |    **216.5 ns** |  **0.52 ns** |  **0.48 ns** |
+|          MemoryStream |      1024 |    857.4 ns |  2.04 ns |  1.59 ns |
+| UnmanagedMemoryStream |      1024 |    223.0 ns |  0.17 ns |  0.14 ns |
+|      **CommunityToolkit** |      **4096** |    **167.1 ns** |  **0.10 ns** |  **0.09 ns** |
+|          MemoryStream |      4096 |    802.1 ns |  4.81 ns |  4.50 ns |
+| UnmanagedMemoryStream |      4096 |    139.4 ns |  0.25 ns |  0.23 ns |
 
 ## YamlDotNet deserialization
 
 ```
-BenchmarkDotNet v0.13.7, macOS Catalina 10.15.6 (19G2021) [Darwin 19.6.0]
-Intel Core i7-5557U CPU 3.10GHz (Broadwell), 1 CPU, 4 logical and 2 physical cores
-.NET SDK 8.0.100-preview.3.23178.7
-  [Host]     : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
-  DefaultJob : .NET 8.0.0 (8.0.23.17408), X64 RyuJIT AVX2
+BenchmarkDotNet v0.13.7, Ubuntu 20.04.6 LTS (Focal Fossa)
+AMD EPYC 7763, 1 CPU, 8 logical and 4 physical cores
+.NET SDK 7.0.400
+  [Host]     : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT AVX2
+  DefaultJob : .NET 7.0.10 (7.0.1023.36312), X64 RyuJIT AVX2
 ```
 |                Method |     Mean |    Error |   StdDev |
 |---------------------- |---------:|---------:|---------:|
-|      CommunityToolkit | 52.14 μs | 0.153 μs | 0.128 μs |
-|          MemoryStream | 53.03 μs | 0.365 μs | 0.285 μs |
-| UnmanagedMemoryStream | 52.91 μs | 0.225 μs | 0.176 μs |
+|      CommunityToolkit | 43.65 μs | 0.073 μs | 0.069 μs |
+|          MemoryStream | 42.49 μs | 0.077 μs | 0.068 μs |
+| UnmanagedMemoryStream | 44.51 μs | 0.059 μs | 0.056 μs |
