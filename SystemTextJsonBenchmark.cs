@@ -60,6 +60,14 @@ public class SystemTextJsonBenchmark
     }
 
     [Benchmark]
+    public unsafe void FastMemoryStream()
+    {
+        var memory = new UnmanagedMemoryManager<byte>((byte*)_pointer, _length);
+        using var stream = new FastMemoryStream(memory.Memory);
+        JsonSerializer.Deserialize<List<Item>>(stream);
+    }
+
+    [Benchmark]
     public unsafe void ReadOnlySpan()
     {
         var span = new ReadOnlySpan<byte>((byte*)_pointer, _length);
